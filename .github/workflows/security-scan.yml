@@ -1,0 +1,23 @@
+name: DevSecOps Automated Security Scan
+
+# THE EVENT TRIGGER
+on:
+  push:
+    branches: [ "main" ]
+
+# THE WORK ENVIRONMENT
+jobs:
+  container_audit:
+    runs-on: ubuntu-latest
+
+   # THE AUTOMATED STEPS
+   steps: 
+   - name: Checkout Code
+     uses: actions/checkout@v4
+   
+   - name: Run Trivy Security Scan 
+     uses: aquasecurity/trivy-action@0.28.0
+     with:
+       scan-type: 'config'
+       format: 'table'
+       exit-code: '1' 
